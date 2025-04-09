@@ -1,0 +1,50 @@
+/* src/pages/Home/Home.css */
+.home {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .hero {
+    
+    background-size: cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+  
+  .hero-content {
+    padding: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #0066cc;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #0055aa;
+  }
+  
+  .featured {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .featured h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+  }
