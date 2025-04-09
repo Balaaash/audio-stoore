@@ -4,19 +4,22 @@ import './Home.css';
 
 const Home = () => {
   return (
-    <div className="home">
-      <section className="hero">
+    <div className="home-page">
+      {/* Hero секция */}
+      <section className="hero-section">
         <div className="hero-content">
           <h1>Premium Audio Accessories</h1>
-          <p>Discover the perfect sound experience</p>
-          <Link to="/catalog" className="cta-button">Shop Now</Link>
+          <Link to="/catalog" className="shop-now-button">
+            SHOP NOW
+          </Link>
         </div>
       </section>
-      
-      <section className="featured">
+
+      {/* Секция с избранными товарами */}
+      <section className="featured-section">
         <h2>Featured Products</h2>
         <div className="featured-grid">
-          {/* Здесь могут быть избранные товары */}
+          {/* Здесь будут карточки избранных товаров */}
         </div>
       </section>
     </div>

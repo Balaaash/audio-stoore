@@ -1,50 +1,85 @@
 /* src/pages/Home/Home.css */
-.home {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .hero {
-    
-    background-size: cover;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-  
-  .hero-content {
-    padding: 20px;
-  }
-  
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    padding: 12px 30px;
-    background-color: #0066cc;
-    color: white;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-  }
-  
-  .cta-button:hover {
-    background-color: #0055aa;
-  }
-  
-  .featured {
-    padding: 40px 20px;
-    text-align: center;
-  }
-  
-  .featured h2 {
-    margin-bottom: 30px;
+/* Основные стили страницы */
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Hero секция */
+.hero-section {
+  background: linear-gradient(rgba(173, 75, 75, 0.5), url('https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center);
+  background-size: cover;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.hero-content {
+  animation: fadeIn 1s ease-out;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shop-now-button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #4e4600;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.shop-now-button:hover {
+  background-color:  #a39300;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Секция избранных товаров */
+.featured-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.featured-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .hero-content h1 {
     font-size: 2rem;
   }
+  
+  .shop-now-button {
+    padding: 10px 20px;
+  }
+}
