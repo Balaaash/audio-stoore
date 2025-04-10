@@ -1,85 +1,69 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CartItem from '../../components/CartItem/CartItem';
-import Button from '../../components/Button/Button';
-import Icon from '../../components/Icon/Icon';
-import useCart from '../../hooks/useCart';
 import './Cart.css';
 
 const Cart = () => {
-  const {
-    cart,
-    totalItems,
-    totalPrice,
-    updateQuantity,
-    removeFromCart,
-    clearCart
-  } = useCart();
+  const cartItems = [
+    { id: 1, name: 'Apple BYZ S852I', price: 2927, quantity: 1 }
+  ];
+
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div className="cart-page">
-      <div className="cart-header">
-        <Link to="/catalog" className="back-link">
-          <Icon name="arrow-left" size={20} />
-          Continue Shopping
-        </Link>
-        <h2>Your Cart ({totalItems} items)</h2>
-      </div>
-      
-      {cart.length === 0 ? (
-        <div className="empty-cart">
-          <p>Your cart is empty</p>
-          <Link to="/catalog">
-            <Button>Browse Products</Button>
-          </Link>
-        </div>
-      ) : (
-        <div className="cart-container">
+      <header className="cart-header">
+        <h1>QPICK</h1>
+      </header>
+
+      <main className="cart-main">
+        <section className="cart-section">
+          <h2>Корзина</h2>
+          
           <div className="cart-items">
-            {cart.map(item => (
-              <CartItem
-                key={item.id}
-                item={item}
-                onQuantityChange={(newQty) => updateQuantity(item.id, newQty)}
-                onRemove={() => removeFromCart(item.id)}
-              />
+            {cartItems.map(item => (
+              <div key={item.id} className="cart-item">
+                <div className="item-image">
+                  <img src={`https://via.placeholder.com/80?text=${item.name}`} alt={item.name} />
+                </div>
+                <div className="item-details">
+                  <h3>{item.name}</h3>
+                  <div className="item-price">{item.price.toLocaleString()} ₽</div>
+                </div>
+              </div>
             ))}
           </div>
-          
-          <div className="cart-summary">
-            <div className="summary-section">
-              <h3>Order Summary</h3>
-              <div className="summary-row">
-                <span>Subtotal</span>
-                <span>${totalPrice.toFixed(2)}</span>
-              </div>
-              <div className="summary-row">
-                <span>Shipping</span>
-                <span>Free</span>
-              </div>
-              <div className="summary-row total">
-                <span>Total</span>
-                <span>${totalPrice.toFixed(2)}</span>
-              </div>
+
+          <div className="cart-total">
+            <div className="total-row">
+              <span>ИТОГО</span>
+              <span>{totalPrice.toLocaleString()} ₽</span>
             </div>
-            
-            <Button 
-              variant="primary" 
-              className="checkout-button"
-              onClick={() => alert('Proceeding to checkout')}
-            >
-              Proceed to Checkout
-            </Button>
-            
-            <Button 
-              variant="secondary" 
-              onClick={clearCart}
-            >
-              Clear Cart
-            </Button>
+          </div>
+
+          <button className="checkout-button">Перейти к оформлению</button>
+        </section>
+
+        <div className="order-summary">
+          <div className="summary-price">{totalPrice.toLocaleString()} ₽</div>
+        </div>
+      </main>
+
+      <footer className="cart-footer">
+        <div className="footer-links">
+          <Link to="/">QPICK</Link>
+          <Link to="/favorites">Избранное</Link>
+          <Link to="/cart">Корзина</Link>
+          <Link to="/contacts">Контакты</Link>
+        </div>
+        <div className="footer-info">
+          <Link to="/terms">Условия сервиса</Link>
+          <div className="language-switcher">
+            <span>Каз</span>
+            <span className="active">Рус</span>
+            <span>Eng</span>
           </div>
         </div>
-      )}
+      </footer>
     </div>
   );
 };
