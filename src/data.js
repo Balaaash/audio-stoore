@@ -22,7 +22,7 @@ export const products = {
       description: 'Проводные наушники',
       colors: ['white'],
       inStock: true,
-      category: 'wired'
+      category: 'wired' 
     },
     {
       id: 3,

@@ -1,94 +1,118 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// src/pages/Catalog/Catalog.jsx
+import React, { useState, useEffect } from 'react';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import './Catalog.css';
 
 const Catalog = () => {
-  const wiredHeadphones = [
-    { id: 1, name: 'Apple BYZ S8521', rating: 4.7, price: 2927, oldPrice: 3527 },
-    { id: 2, name: 'Apple EarPods', rating: 4.5, price: 2327, oldPrice: 2327 },
-    { id: 3, name: 'Apple EarPods', rating: 4.5, price: 2327, oldPrice: 2327 },
-    { id: 4, name: 'Apple BYZ S8521', rating: 4.7, price: 2927, oldPrice: 3527 },
-    { id: 5, name: 'Apple EarPods', rating: 4.5, price: 2327, oldPrice: 2327 }
-  ];
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortOption, setSortOption] = useState('default');
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const wirelessHeadphones = [
-    { id: 6, name: 'Apple AirPods', rating: 4.7, price: 9527, oldPrice: 9527 },
-    { id: 7, name: 'GERLAX GH-04', rating: 4.7, price: 6527, oldPrice: 6527 },
-    { id: 8, name: 'BOROFONE BO4', rating: 4.7, price: 7527, oldPrice: 7527 }
-  ];
+  useEffect(() => {
+    // Загрузка товаров (в реальном проекте - API запрос)
+    const loadProducts = async () => {
+      // Здесь должен быть реальный запрос к API
+      const data = [...products.wired, ...products.wireless]; // Ваша функция для загрузки
+      setProducts(data);
+      setFilteredProducts(data);
+    };
+    loadProducts();
+  }, []);
+
+  useEffect(() => {
+    applyFilters();
+  }, [sortOption, priceRange, selectedCategory, products]);
+
+  const applyFilters = () => {
+    let result = [...products];
+
+    // Фильтрация по категории
+    if (selectedCategory !== 'all') {
+      result = result.filter(p => p.category === selectedCategory);
+    }
+
+    // Фильтрация по цене
+    result = result.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+
+    // Сортировка
+    switch (sortOption) {
+      case 'price-asc':
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        result.sort((a, b) => b.price - a.price);
+        break;
+      case 'rating':
+        result.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        // Стандартная сортировка (по умолчанию)
+        break;
+    }
+
+    setFilteredProducts(result);
+  };
 
   return (
-    <div className="qpick-catalog">
-      <header className="qpick-header">
-        <h1>QPICK</h1>
-        <div className="header-icons">
-          <Link to="/favorites" className="icon-link">
-            <span className="icon">❤️</span>
-          </Link>
-          <Link to="/cart" className="icon-link">
-            <span className="icon">🛒</span>
-          </Link>
+    <div className="catalog-page">
+      <div className="filters-sidebar">
+        <h2>Фильтры</h2>
+        
+        <div className="filter-group">
+          <h3>Категория</h3>
+          <select 
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="all">Все категории</option>
+            <option value="wired">Проводные</option>
+            <option value="wireless">Беспроводные</option>
+          </select>
         </div>
-      </header>
 
-      <main className="qpick-main">
-        <section className="category-section">
-          <h2>Наушники</h2>
-          <div className="products-grid">
-            {wiredHeadphones.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
-
-        <section className="category-section">
-          <h2>Беспроводные наушники</h2>
-          <div className="products-grid">
-            {wirelessHeadphones.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer className="qpick-footer">
-        <div className="footer-links">
-          <Link to="/">QPICK</Link>
-          <Link to="/favorites">Избранное</Link>
-          <Link to="/cart">Корзина</Link>
-          <Link to="/contacts">Контакты</Link>
-        </div>
-        <div className="footer-info">
-          <Link to="/terms">Условия сервиса</Link>
-          <div className="language-switcher">
-            <span className="active">Рус</span>
-            <span>Eng</span>
+        <div className="filter-group">
+          <h3>Цена, ₽</h3>
+          <div className="price-range">
+            <input
+              type="range"
+              min="0"
+              max="10000"
+              value={priceRange[1]}
+              onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+            />
+            <div className="price-values">
+              <span>{priceRange[0].toLocaleString()} ₽</span>
+              <span>{priceRange[1].toLocaleString()} ₽</span>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
-  );
-};
-
-const ProductCard = ({ product }) => {
-  return (
-    <div className="product-card">
-      <div className="product-image">
-        <img 
-          src={`https://via.placeholder.com/200x200/EEE?text=${product.name.replace(/\s+/g, '+')}`} 
-          alt={product.name}
-        />
       </div>
-      <div className="product-info">
-        <h3>{product.name}</h3>
-        <div className="product-rating">★ {product.rating}</div>
-        <div className="product-prices">
-          <span className="current-price">{product.price.toLocaleString()} ₽</span>
-          {product.oldPrice && product.oldPrice !== product.price && (
-            <span className="old-price">{product.oldPrice.toLocaleString()} ₽</span>
-          )}
+
+      <div className="products-container">
+        <div className="sort-options">
+          <span>Сортировка:</span>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">По возрастанию цены</option>
+            <option value="price-desc">По убыванию цены</option>
+            <option value="rating">По рейтингу</option>
+          </select>
+          <span className="products-count">{filteredProducts.length} товаров</span>
         </div>
-        <button className="buy-button">Купить</button>
+
+        <div className="products-grid">
+          {filteredProducts.map(product => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

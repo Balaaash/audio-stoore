@@ -1,30 +1,46 @@
+// src/components/CartItem/CartItem.jsx
 import React from 'react';
-import Counter from '../Counter/Counter';
+import PropTypes from 'prop-types';
 import './CartItem.css';
 
-const CartItem = ({ item, onQuantityChange, onRemove }) => {
+const CartItem = ({ item, onRemove, onQuantityChange }) => {
   return (
     <div className="cart-item">
-      <img src={item.image} alt={item.name} className="cart-item-image" />
-      <div className="cart-item-details">
-        <h3 className="cart-item-title">{item.name}</h3>
-        <p className="cart-item-price">${item.price} each</p>
+      <div className="item-image">
+        <img src={item.image} alt={item.name} />
       </div>
-      <div className="cart-item-controls">
-        <Counter 
-          value={item.quantity} 
-          onChange={(newQuantity) => onQuantityChange(item.id, newQuantity)}
-        />
+      <div className="item-details">
+        <h3>{item.name}</h3>
+        <div className="item-price">{item.price.toLocaleString()} ₽</div>
+      </div>
+      <div className="item-controls">
+        <div className="quantity-selector">
+          <button 
+            onClick={() => onQuantityChange(item.id, item.quantity - 1)}
+            disabled={item.quantity <= 1}
+          >
+            -
+          </button>
+          <span>{item.quantity}</span>
+          <button onClick={() => onQuantityChange(item.id, item.quantity + 1)}>
+            +
+          </button>
+        </div>
         <button 
-          className="remove-button" 
+          className="remove-button"
           onClick={() => onRemove(item.id)}
         >
-          Remove
+          Удалить
         </button>
       </div>
-      <div className="cart-item-total">${(item.price * item.quantity).toFixed(2)}</div>
     </div>
   );
+};
+
+CartItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onQuantityChange: PropTypes.func.isRequired,
 };
 
 export default CartItem;
