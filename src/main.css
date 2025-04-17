@@ -167,3 +167,46 @@ footer .social-icons img {
   margin: 0 5px;
   cursor: pointer;
 }
+
+.icon:hover { opacity: .7; transform: scale(1.1); transition: .2s; }
+.link-button:hover { color: #007bff; }
+
+.cart-icon { position: relative; display: inline-block; }
+.cart-count {
+  position: absolute; top: -6px; right: -6px;
+  background: red; color: white;
+  border-radius: 50%; padding: 2px 6px;
+  font-size: 12px;
+}
+
+.cart-page table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.cart-page th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+.back-button {
+  display: inline-block; margin-top: 10px;
+  padding: 8px 12px; background: #007bff; color: #fff;
+  border-radius: 4px; text-decoration: none;
+}
+.back-button:hover { background: #0056b3; }
+
+.cart-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.cart-page th, .cart-page td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.back-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.back-button:hover {
+  background: #0056b3;
+}
