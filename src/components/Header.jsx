@@ -1,21 +1,23 @@
+import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { FiShoppingCart } from 'react-icons/fi';
+import { CartContext } from '../context/CartContext';
+import { ReactComponent as HeartIcon } from './images/icons/heart.svg'; // Иконка для избранного
+import { ReactComponent as CartIcon } from './images/icons/cart.svg'; // Иконка для корзины
 
 const Header = () => {
-  const { cartItems } = useContext(CartContext);
-  const total = cartItems.reduce((s, i) => s + i.quantity, 0);
-
   return (
     <header>
-      <Link to="/" className="logo">QPICK</Link>
+      <div className="logo">QPICK</div>
       <div className="icons">
-        {/* … */}
-        <Link to="/cart" className="cart-icon">
-          <CartIcon className="icon" />
-          {total > 0 && <span className="cart-count">{total}</span>}
-        </Link>
+        <HeartIcon className="icon" />
+        <CartIcon className="icon" />
       </div>
     </header>
   );
 };
 
+
+export default Header;
 
