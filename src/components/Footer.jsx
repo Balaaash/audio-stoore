@@ -1,7 +1,7 @@
 import React from 'react';
-import { ReactComponent as TelegramIcon } from '../icons/telegram.svg';
-import { ReactComponent as VkIcon } from '../icons/vk.svg';
-import { ReactComponent as InstagramIcon } from '../icons/instagram.svg';
+import { ReactComponent as TelegramIcon } from './images/icons/telegram.svg';
+import { ReactComponent as VkIcon } from './images/icons/vk.svg';
+import { ReactComponent as InstagramIcon } from './images/icons/whatsapp.svg';
 
 const Footer = () => {
   return (

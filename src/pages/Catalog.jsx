@@ -2,11 +2,11 @@ import React from 'react';
 import ProductCard from '../components/ProductCard';
 
 // Импортируйте изображения
-import appleBYZS852I from '../images/apple-byz-s852i.jpg';
-import appleEarPods from '../images/apple-earpods.jpg';
-import appleAirPods from '../images/apple-airpods.jpg';
-import gerlaxCH04 from '../images/gerlax-ch-04.jpg';
-import borofoneBO4 from '../images/borofone-bo4.jpg';
+import appleBYZS852I from '../components/images/apple-byz-s852i.jpg';
+import appleEarPods from '../components/images/apple-earpods.jpg';
+import appleAirPods from '../components/images/apple-airpods.jpg';
+import gerlaxCH04 from '../components/images/gerlax-ch-04.jpg';
+import borofoneBO4 from '../components/images/borofone-bo4.jpg';
 
 const products = [
   { id: 1, name: "Apple BYZ S852I", price: 2927, rating: 4.7, image: appleBYZS852I },
