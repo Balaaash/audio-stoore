@@ -1,53 +1,99 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
+// src/pages/Cart.jsx
+import React, { useState, useEffect } from 'react';
 import deleteIcon from '../images/icons/delete.svg';
 
-export default function CartPage() {
-  const { cartItems, addToCart, removeFromCart, clearItem } = useContext(CartContext);
+export default function Cart() {
+  const [cart, setCart] = useState([]);
 
-  const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  // Загружаем корзину из sessionStorage при монтировании
+  useEffect(() => {
+    const load = () => {
+      const raw = sessionStorage.getItem('cart');
+      setCart(raw ? JSON.parse(raw) : []);
+    };
+    load();
+
+    // Подписываемся на обновления (вызываем window.dispatchEvent в Catalog)
+    window.addEventListener('cartUpdated', load);
+    return () => window.removeEventListener('cartUpdated', load);
+  }, []);
+
+  const save = (newCart) => {
+    setCart(newCart);
+    sessionStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
+  const increment = (item) => {
+    const updated = cart.map(p =>
+      p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p
+    );
+    save(updated);
+  };
+
+  const decrement = (item) => {
+    let updated = cart.map(p =>
+      p.id === item.id ? { ...p, quantity: p.quantity - 1 } : p
+    );
+    // Убираем товары с нулём
+    updated = updated.filter(p => p.quantity > 0);
+    save(updated);
+  };
+
+  const removeItem = (item) => {
+    const updated = cart.filter(p => p.id !== item.id);
+    save(updated);
+  };
+
+  const totalPrice = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
   return (
     <div className="container cart-page">
-      {/* Заголовок страницы */}
       <h1 className="cart-title">Корзина</h1>
 
-      {/* Основная сетка: 2 колонки */}
-      <div className="cart-layout">
-        {/* Левая колонка: список товаров */}
-        <div className="cart-items">
-          {cartItems.map(item => (
-            <div key={item.id} className="cart-card">
-              <img src={item.image} alt={item.name} className="cart-card__img" />
+      {cart.length === 0 ? (
+        <p>Ваша корзина пуста.</p>
+      ) : (
+        <div className="cart-content">
+          {/* товары */}
+          <div className="cart-items">
+            {cart.map(item => (
+              <div key={item.id} className="cart-card">
+              {/* 1) Медиа‑блок: картинка + qty */}
+              <div className="cart-card__media">
+                <img src={item.image} alt={item.name} className="cart-card__img" />
+                <div className="cart-card__qty">
+                  <button onClick={() => decrement(item)} className="qty-btn">−</button>
+                  <span className="qty">{item.quantity}</span>
+                  <button onClick={() => increment(item)} className="qty-btn">+</button>
+                </div>
+              </div>
               <div className="cart-card__info">
                 <h2 className="cart-card__name">{item.name}</h2>
                 <p className="cart-card__price">{item.price.toLocaleString()} ₽</p>
-                <div className="cart-card__controls">
-                  <button onClick={() => removeFromCart(item)} className="qty-btn">−</button>
-                  <span className="qty">{item.quantity}</span>
-                  <button onClick={() => addToCart(item)} className="qty-btn">+</button>
-                </div>
               </div>
-              <div className="cart-card__actions">
-                <button onClick={() => clearItem(item)} className="delete-btn">
+                <div className="cart-card__actions">
+                <button onClick={() => removeItem(item)} className="delete-btn">
                   <img src={deleteIcon} alt="Удалить" />
                 </button>
-                <p className="cart-card__total">{(item.price * item.quantity).toLocaleString()} ₽</p>
+                  <p className="cart-card__total">
+                    {(item.price * item.quantity).toLocaleString()} ₽
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Правая колонка: итоговая панель */}
-        <div className="cart-summary">
-          <p className="summary-label">Итого</p>
-          <p className="summary-price">{totalPrice.toLocaleString()} ₽</p>
-          <button className="checkout-btn">Перейти к оформлению</button>
+          {/* итог */}
+          <div className="cart-summary">
+            <p className="summary-label">Итого</p>
+            <p className="summary-price">{totalPrice.toLocaleString()} ₽</p>
+            <button className="checkout-btn">Перейти к оформлению</button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
+
 
 

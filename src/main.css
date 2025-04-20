@@ -2,6 +2,11 @@
   * {
   box-sizing: border-box;
   }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
   body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -149,13 +154,26 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     padding: 24px 16px 32px;
     text-align: center;
+    width: 100%;             /* заполняет 1fr из сетки */
+    max-width: 300px;        /* лимитируем, чтобы не превышать нужный размер */
+    min-height: 360px;       /* гарантируем минимальную высоту всех карточек */
+    padding: 16px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow .2s;
+    margin: 0 auto;
   }
 
   .products {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    position: relative; /* важно, чтобы псевдо‑элемент позиционировался внутри */
+  grid-template-columns: repeat(3, 320px); /* три колонки фиксированной ширины */
+  gap: 24px 32px;                          /* вертикальный и горизонтальный отступ */
+  justify-content: center;                /* центрируем весь грид внутри .container */
+  margin: 32px auto 0;                    /* сверху = 32px, слева/справа авто для центровки */
+  padding: 0 16px;                        /* немного внутреннего отступа по бокам */
+  box-sizing: border-box; /* важно, чтобы псевдо‑элемент позиционировался внутри */
   }
   
   .product .product-card:nth-child(7)::before {
@@ -222,6 +240,35 @@
     text-align: left;
     display: flex;
     flex-direction: column;
+    max-width: 320px;      /* вместо 100% или 300+px ставим 260px */
+    width: 100%;           /* но позволяем ей ужиматься */
+    padding: 12px;
+    min-height: 300px;
+  }
+
+  .product-card img {
+    max-height: 140px;     /* раньше могло быть 200px+, теперь 140px */
+    object-fit: contain;
+    margin-bottom: 8px;    /* чуть меньше пространства под картинкой */
+  }
+
+  .product-card h3 {
+    font-size: 1rem;       /* было 1.1rem или больше — возвращаем к простому 1rem */
+    margin-bottom: 6px;
+  }
+
+  .product-card p {
+    font-size: 0.9rem;     /* чуть мельче ценник */
+    margin-bottom: 8px;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .product-card button {
+    padding: 6px 12px;     /* чуть более компактная кнопка */
+    font-size: 0.9rem;
   }
 
   .product-price {
@@ -292,14 +339,14 @@
   /* сама плитка футера */
   .footer-tile {
     background: #ffffff;
-    border-radius: 50px 50px 0 0; /* сильное скругление сверху */
+    border-radius: 24px 24px 0 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    display: flex;
-    gap: 48px;
-    align-items: flex-start;
     padding: 24px 16px;
     width: 100%;
     max-width: 1200px;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
   }
   
   /* колонки внутри футера */
@@ -581,7 +628,7 @@
 
   .cart-page {
     margin-top: 24px;
-    margin-bottom: 160px; /* чтобы не прятался за футером */
+    margin-bottom: 160px; /* чтобы не прятался футер */
   }
 
   cart-title {
@@ -600,6 +647,14 @@
     gap: 32px;
   }
 
+  .cart-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;      /* занимать всю ширину родителя */
+    gap: 32px;
+  }
+
   .cart-items {
     display: flex;
     flex-direction: column;
@@ -608,31 +663,53 @@
 
   .cart-card {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    position: relative;
     background: #fff;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 24px;
+    gap: 200px;
+    flex: 1 1 0;                      
+    min-width: 0;
+  }
+
+  .cart-card__media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 
   .cart-card__img {
-    width: 100px;
+    width: 160px;
     height: auto;
-    margin-right: 16px;
+    object-fit: contain;
   }
 
   .cart-card__info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* если нужно по центру высоты */
+  }
+  .cart-card__body {
+    grid-area: body;
+    /* выравнивание по верху первой строки */
+    align-self: start;
   }
 
   .cart-card__name {
-    margin: 0 0 4px;
-    font-size: 1rem;
+    margin: 0 0 8px;
+    font-size: 1.125rem;
+    font-weight: 500;
   }
+  
 
   .cart-card__price {
-    margin: 0 0 8px;
-    color: #666;
+    margin: 0;
+    color: #888;
+    font-size: 1rem;
   }
 
   .cart-card__controls {
@@ -641,29 +718,46 @@
     gap: 8px;
   }
 
+  .cart-card__qty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cart-card__actions .delete-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  
+
   .qty-btn {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border: none;
     background: #ffd580;
     border-radius: 50%;
-    font-size: 1rem;
+    font-size: 1.25rem;
+    color: #333;
     cursor: pointer;
   }
 
   .qty {
     min-width: 24px;
     text-align: center;
+    font-weight: 500;
   }
 
   .cart-card__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
+    grid-area: actions;
+    justify-self: end;
+    align-self: start;
   }
   
   .delete-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -675,8 +769,11 @@
   }
 
   .cart-card__total {
-    margin: 0;
-    font-weight: bold;
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    font-weight: 600;
+    font-size: 1rem;
   }
 
   .cart-wrapper {
@@ -722,51 +819,48 @@
   }
 
   .cart-summary {
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 16px;
+    width: 300px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 0 0 320px;
+    max-width: 320px;
   }
-
+  
   .summary-label {
-    margin: 0;
-    font-size: 1rem;
+    text-transform: uppercase;
+    font-size: 0.875rem;
     color: #666;
+    margin: 0 0 8px;
   }
-
+  
   .summary-price {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: bold;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 1.125rem;
+    font-weight: 600;
   }
   
   .checkout-btn {
-    margin-top: auto;
+    margin-top: 48px; /* чтобы отстоять от суммы */
     background: #000;
     color: #fff;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 12px 0;
+    border-radius: 24px;
     font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
+    transition: opacity 0.2s;
   }
-
-  .btn-checkout {
-    background-color: #FF7A00;
-    color: #FFF;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-top: 16px;
-  }
-
-  .btn-checkout:hover {
-    background-color: #E26A00;
+  
+  .checkout-btn:hover {
+    opacity: 0.85;
   }
   
   .container {
@@ -777,11 +871,43 @@
     padding-right: 16px;    /* боковые отступы, чтобы не прилипало к краям */
   }
 
-  @media (max-width: 768px) {
-    .cart-layout {
-      grid-template-columns: 1fr;
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .page-content {
+    flex: 1;
+    /* если у вас есть паддинг под фиксированный header, оставьте его */
+    padding-top: 56px;
+    /* по желанию — отступ снизу под футер */
+    padding-bottom: 32px;
+  }
+  
+  .footer-tile-wrapper {
+    position: static; /* вместо fixed */
+    margin-top: auto; /* пушит футер вниз, если мало контента */
+    background: transparent; /* фон берёт .footer-tile */
+    display: flex;
+    justify-content: center;
+    padding: 32px 0; /* отступ сверху/снизу */
+    /* убираем z-index, fixed и т.д. */
+  }
+
+  @media (max-width: 1024px) {
+    .cart-content {
+      flex-direction: column;
     }
     .cart-summary {
+      width: 100%;
       margin-top: 24px;
+      position: static;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .products {
+      grid-template-columns: 1fr;
     }
   }

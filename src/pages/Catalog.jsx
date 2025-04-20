@@ -22,38 +22,40 @@ const products = [
   { id: 9, name: "Apple AirPods", price: 9527, rating: 4.7, image: appleAirPods },
 ];
 
-const Catalog = () => {
-  const addToCart = (product) => {
-    let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const existingItem = cart.find(item => item.id === product.id);
+export default function Catalog() {
+  const handleAddToCart = (product) => {
+    // 1) Получаем текущую корзину
+    const raw = sessionStorage.getItem('cart');
+    const cart = raw ? JSON.parse(raw) : [];
 
-    if (existingItem) {
-      existingItem.quantity += 1;
+    // 2) Ищем товар в корзине
+    const idx = cart.findIndex(item => item.id === product.id);
+
+    if (idx > -1) {
+      // если есть — увеличиваем количество
+      cart[idx].quantity += 1;
     } else {
+      // если нет — добавляем с quantity = 1
       cart.push({ ...product, quantity: 1 });
     }
 
+    // 3) Сохраняем обратно в sessionStorage
     sessionStorage.setItem('cart', JSON.stringify(cart));
+
+    // 4) (необязательно) — мы можем оповестить других через событие
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   return (
-    <div className="site-container">
-     <h2 className="section-title">Наушники</h2>
-     <div className="products-grid">
-        {products.slice(0, 6).map(product => (
-          <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
-        ))}
-      </div>
-      <h2 className="section-title">Беспроводные наушники</h2>
-      <div className="products-grid">
-        {products.slice(6).map(product => (
-          <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
-        ))}
-      </div>
-    </div>
+    <section className="products">
+      {products.map(p => (
+        <ProductCard
+          key={p.id}
+          product={p}
+          onAddToCart={() => handleAddToCart(p)}
+        />
+      ))}
+    </section>
   );
-};
-
-
-export default Catalog;
+}
 
