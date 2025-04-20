@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ReactComponent as HeartIcon } from '../images/icons/heart.svg';
-import { ReactComponent as CartIcon } from '../images/icons/cart.svg';
+// src/components/Header.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import favoriteIcon from '../images/icons/heart.svg';
+import cartIcon     from '../images/icons/cart.svg';
 
-const Header = () => {
-  const navigate = useNavigate();
-  const [favorites, setFavorites] = useState([]);
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    setFavorites(JSON.parse(sessionStorage.getItem('favorites')) || []);
-    setCart(JSON.parse(sessionStorage.getItem('cart')) || []);
-  }, []);
-
+export default function Header() {
   return (
-    <header className="site-header">
-      <div className="site-container">
-        <div className="logo" onClick={() => navigate('/')}>
+    <header className="header-wrapper">
+      <div className="header container">
+        {/* ЛОГОТИП */}
+        <Link to="/" className="header-logo">
           QPICK
-        </div>
+        </Link>
 
-        <div className="header-icons">
-          <div className="icon-wrapper" onClick={() => navigate('/favorites')}>
-            <HeartIcon className="icon" />
-            {favorites.length > 0 && <span className="badge">{favorites.length}</span>}
-          </div>
-
-          <div className="icon-wrapper" onClick={() => navigate('/cart')}>
-            <CartIcon className="icon" />
-            {cart.length > 0 && <span className="badge">{cart.length}</span>}
-          </div>
+        {/* КНОПКИ ИЗБРАННОЕ / КОРЗИНА */}
+        <div className="header-actions">
+          <Link to="/favorites" className="action-link">
+            <img src={favoriteIcon} alt="Избранное" />
+            <span className="badge">2</span>
+          </Link>
+          <Link to="/cart" className="action-link">
+            <img src={cartIcon} alt="Корзина" />
+            <span className="badge">1</span>
+          </Link>
         </div>
       </div>
     </header>
   );
-};
+}
 
-export default Header;

@@ -1,27 +1,74 @@
 /* ------ базовые сбросы ------ */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  * {
+  box-sizing: border-box;
   }
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: #F5F5F7;
-    color: #333;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  /* отступ под фиксированный header */
+  padding-top: 56px;
   }
+
   a {
     text-decoration: none;
     color: inherit;
   }
   
   /* ------ контейнер всего сайта ------ */
-  .site-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
+  .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
   }
   
   /* ------ Header ------ */
+  .header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    /* padding внутри header идти не должен — высоту задаёт .header */
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px; /* компактная высота */
+  }
+
+  .header-logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .action-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .action-link img {
+    width: 24px;
+    height: 24px;
+  }
+
   .site-header {
     /* можно добавить фон или отступы, если нужно */
     padding: 20px 0;
@@ -57,20 +104,22 @@
   }
   
   /* бейдж */
-  .header-icons .badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: #FF7A00;
-    color: #FFF;
-    font-size: 12px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background: #ff6b01;
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 16px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   
   /* ------ Заголовок секции товаров ------ */
   .product-section + .product-section {
@@ -235,50 +284,125 @@
     text-decoration: underline;
   }
 
-  .site-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+  
 
   /* ------ Footer ------ */
+  .footer-tile-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+  }
+  
+  /* сама плитка футера */
   .footer-tile {
     background: #ffffff;
-    /* сильное скругление только сверху, снизу — ровно */
-    border-radius: 50px 50px 0 0;
+    border-radius: 50px 50px 0 0; /* сильное скругление сверху */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 24px 16px;
     display: flex;
-    gap: 24px;
+    gap: 48px;
+    align-items: flex-start;
+    padding: 24px 16px;
     width: 100%;
     max-width: 1200px;
   }
-
+  
+  /* колонки внутри футера */
   .footer-col {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
-
-  .footer-col--left   { flex: 1; align-items: flex-start; }
-  .footer-col--center { flex: 1; align-items: center;    }
-  .footer-col--right  { flex: 1; align-items: flex-end;   }
-
-  .footer-col .logo {
+  
+  /* логотип слева */
+  .footer-col--logo {
+    flex: 1;
+    align-items: flex-start;
+  }
+  .logo {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #333;
   }
-
-  .footer-col--right .footer-link {
-    color: #333;
+  
+  /* средний блок (две группы ссылок) */
+  .footer-col--middle {
+    flex: 2;
+    display: flex;
+    gap: 64px; /* расстояние между двумя группами */
+  }
+  
+  /* группы ссылок */
+  .links-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .links-group .footer-link {
     font-size: 0.9rem;
+    color: #333;
     text-decoration: none;
-    margin-bottom: 8px;
     transition: color 0.2s;
   }
-  .footer-col--right .footer-link:hover {
+  .links-group .footer-link:hover {
     color: #1e90ff;
+  }
+  
+  /* группы информации */
+  .info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .info-group > .footer-link {
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .info-group > .footer-link:hover {
+    color: #1e90ff;
+  }
+  
+  /* переключатель языка */
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .lang-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .lang-link {
+    font-size: 0.85rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .lang-link:hover,
+  .lang-link.active {
+    color: #ff8c00;
+  }
+  .lang-separator {
+    color: #999;
+  }
+  
+  /* соц‑иконки справа */
+  .footer-col--social {
+    flex: 1;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+  }
+  .footer-col--social .icon {
+    width: 24px;
+    height: 24px;
   }
 
   .site-footer {
@@ -307,6 +431,24 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 8px;
+  }
+
+  .info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .info-group > .footer-link {
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .info-group > .footer-link:hover {
+    color: #1e90ff;
   }
 
   .footer-link {
@@ -378,23 +520,28 @@
     color: #1e90ff;
   }
 
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 8px;
-    font-size: 0.85rem;
-  }
-
-  .lang-switch a {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .lang-switch a.active,
-  .lang-switch a:hover {
-    color: #ff8c00; /* или ваш акцентный цвет */
-  }
+  .lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lang-icon {
+  width: 16px;
+  height: 16px;
+}
+.lang-link {
+  font-size: 0.85rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.lang-link:hover,
+.lang-link.active {
+  color: #ff8c00;
+}
+.lang-separator {
+  color: #999;
+}
 
   .footer-social {
     display: flex;
@@ -419,6 +566,11 @@
     font-weight: bold;
     font-size: 1rem;
     color: #333;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    font-weight: bold;
   }
 
   .social-icons {
