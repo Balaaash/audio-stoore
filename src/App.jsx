@@ -1,9 +1,15 @@
+// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Catalog from './pages/Catalog';
-import Cart from './pages/Cart';
+
+// СЮДА — импортируем CartProvider
+import { CartProvider } from './context/CartContext';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
+
+import Catalog from './pages/Catalog';
+import Cart from './pages/Cart';
 
 const App = () => {
   return (
@@ -11,7 +17,7 @@ const App = () => {
       <CartProvider>
         <Header />
 
-        {/* вот здесь контейнер — он ограничит по ширине и отцентрирует */}
+        {/* Оборачиваем всё, что между Header и Footer */}
         <div className="container">
           <Routes>
             <Route path="/" element={<Catalog />} />
@@ -26,3 +32,4 @@ const App = () => {
 };
 
 export default App;
+

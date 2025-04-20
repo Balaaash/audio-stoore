@@ -242,11 +242,82 @@
   }
 
   /* ------ Footer ------ */
+  .footer-tile {
+    background: #ffffff;
+    /* сильное скругление только сверху, снизу — ровно */
+    border-radius: 50px 50px 0 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 24px 16px;
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-col--left   { flex: 1; align-items: flex-start; }
+  .footer-col--center { flex: 1; align-items: center;    }
+  .footer-col--right  { flex: 1; align-items: flex-end;   }
+
+  .footer-col .logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .footer-col--right .footer-link {
+    color: #333;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col--right .footer-link:hover {
+    color: #1e90ff;
+  }
+
   .site-footer {
     display: flex;
     justify-content: space-between;
     padding: 40px 20px;
     border-top: 1px solid #E0E0E0;
+  }
+
+  .bottom-bar {
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    padding: 16px 0;
+    margin-top: 32px;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .footer-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color .2s;
+  }
+
+  .footer-link:hover {
+    color: #1e90ff;
   }
 
   .site-footer .logo {
@@ -273,11 +344,21 @@
 
   .footer-nav {
     display: flex;
-    gap: 60px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 
   .footer-nav ul {
+    display: flex;
+    flex-direction: column;
     list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-nav li + li {
+    margin-top: 6px;
   }
 
   .footer-nav li {
@@ -286,13 +367,46 @@
     color: #444;
   }
 
-  .lang-switch {
-    margin-top: 4px;
-    font-size: 14px;
+  .footer-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
   }
 
-  .lang-switch .active {
-    font-weight: 600;
+  .footer-nav a:hover {
+    color: #1e90ff;
+  }
+
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 0.85rem;
+  }
+
+  .lang-switch a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .lang-switch a.active,
+  .lang-switch a:hover {
+    color: #ff8c00; /* или ваш акцентный цвет */
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social .icon {
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.2s;
+  }
+  .footer-social .icon:hover {
+    opacity: 0.7;
   }
 
   .footer-social img {
@@ -301,6 +415,27 @@
     cursor: pointer;
   }
   
+  .footer-logo {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: opacity .2s;
+  }
+  
+  .social-icons img:hover {
+    opacity: 0.7;
+  }
+
   .cart-page {
     display: grid;
     grid-template-columns: 1fr auto;
