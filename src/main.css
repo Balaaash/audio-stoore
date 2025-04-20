@@ -396,3 +396,10 @@
     background-color: #E26A00;
   }
   
+  .container {
+    max-width: 1200px;      /* или любую удобную вам ширину */
+    margin-left: auto;
+    margin-right: auto;     /* центрируем по горизонтали */
+    padding-left: 16px;
+    padding-right: 16px;    /* боковые отступы, чтобы не прилипало к краям */
+  }
