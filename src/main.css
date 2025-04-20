@@ -136,8 +136,9 @@
   /* ------ Сетка карточек ------ */
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 24px 0;
   }
   
   /* ------ Карточка товара ------ */
@@ -287,16 +288,6 @@
   
 
   /* ------ Footer ------ */
-  .footer-tile-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    z-index: 100;
-  }
   
   /* сама плитка футера */
   .footer-tile {
@@ -330,7 +321,7 @@
   
   /* средний блок (две группы ссылок) */
   .footer-col--middle {
-    flex: 2;
+    flex-direction: row;
     display: flex;
     gap: 64px; /* расстояние между двумя группами */
   }
@@ -354,7 +345,7 @@
   /* группы информации */
   .info-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: flow;
     gap: 8px;
     align-items: flex-start;
   }
@@ -381,7 +372,7 @@
   .lang-link {
     font-size: 0.85rem;
     color: #333;
-    text-decoration: none;
+    text-decoration: row;
     transition: color 0.2s;
   }
   .lang-link:hover,
@@ -589,9 +580,13 @@
   }
 
   .cart-page {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 160px; /* чтобы не прятался за футером */
+  }
+
+  cart-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
   }
 
   .cart-list {
@@ -599,22 +594,89 @@
     padding: 0;
   }
 
-  .cart-item {
-    display: flex;
-    align-items: center;
-    background: #FFF;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 16px;
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
   }
 
-  .cart-item-img {
-    width: 80px;
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cart-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .cart-card__img {
+    width: 100px;
+    height: auto;
     margin-right: 16px;
   }
 
-  .cart-item-info {
+  .cart-card__info {
     flex: 1;
+  }
+
+  .cart-card__name {
+    margin: 0 0 4px;
+    font-size: 1rem;
+  }
+
+  .cart-card__price {
+    margin: 0 0 8px;
+    color: #666;
+  }
+
+  .cart-card__controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qty-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: #ffd580;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .qty {
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .cart-card__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .delete-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-card__total {
+    margin: 0;
+    font-weight: bold;
   }
 
   .cart-wrapper {
@@ -660,13 +722,37 @@
   }
 
   .cart-summary {
-    background: #FFF;
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  }
+
+  .summary-label {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .summary-price {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .checkout-btn {
+    margin-top: auto;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
   }
 
   .btn-checkout {
@@ -689,4 +775,13 @@
     margin-right: auto;     /* центрируем по горизонтали */
     padding-left: 16px;
     padding-right: 16px;    /* боковые отступы, чтобы не прилипало к краям */
+  }
+
+  @media (max-width: 768px) {
+    .cart-layout {
+      grid-template-columns: 1fr;
+    }
+    .cart-summary {
+      margin-top: 24px;
+    }
   }

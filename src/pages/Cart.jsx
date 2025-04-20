@@ -1,66 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/pages/CartPage.jsx
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import IconLink from '../components/IconLink';
+import deleteIcon from '../images/icons/delete.svg';
 
-const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate();
+export default function CartPage() {
+  const { cartItems, addToCart, removeFromCart, clearItem } = useContext(CartContext);
 
-  useEffect(() => {
-    const stored = JSON.parse(sessionStorage.getItem('cart')) || [];
-    setCartItems(stored);
-  }, []);
-
-  const removeItem = id => {
-    const updated = cartItems.filter(item => item.id !== id);
-    setCartItems(updated);
-    sessionStorage.setItem('cart', JSON.stringify(updated));
-  };
-
-  const updateQuantity = (id, delta) => {
-    const updated = cartItems.map(item => {
-      if (item.id === id) {
-        return { ...item, quantity: Math.max(1, item.quantity + delta) };
-      }
-      return item;
-    });
-    setCartItems(updated);
-    sessionStorage.setItem('cart', JSON.stringify(updated));
-  };
-
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalItems = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+  const totalPrice = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
   return (
-    <div className="site-container">
-      <h2 className="section-title">Корзина</h2>
-      {cartItems.length === 0 ? (
-        <p>Ваша корзина пуста.</p>
-      ) : (
-        <div className="cart-page">
-          <ul className="cart-list">
-            {cartItems.map(item => (
-              <li key={item.id} className="cart-item">
-                <img src={item.image} alt={item.name} className="cart-item-img" />
-                <div className="cart-item-info">
-                  <h3>{item.name}</h3>
-                  <p>{item.price} ₴</p>
-                  <div className="quantity-controls">
-                    <button onClick={() => updateQuantity(item.id, -1)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, +1)}>+</button>
-                  </div>
+    <div className="container cart-page">
+      {/* Заголовок страницы */}
+      <h1 className="cart-title">Корзина</h1>
+
+      {/* Основная сетка: 2 колонки */}
+      <div className="cart-layout">
+        {/* Левая колонка: список товаров */}
+        <div className="cart-items">
+          {cartItems.map(item => (
+            <div key={item.id} className="cart-card">
+              <img src={item.image} alt={item.name} className="cart-card__img" />
+              <div className="cart-card__info">
+                <h2 className="cart-card__name">{item.name}</h2>
+                <p className="cart-card__price">{item.price.toLocaleString()} ₽</p>
+                <div className="cart-card__controls">
+                  <button onClick={() => removeFromCart(item)} className="qty-btn">−</button>
+                  <span className="qty">{item.quantity}</span>
+                  <button onClick={() => addToCart(item)} className="qty-btn">+</button>
                 </div>
-                <button className="btn-remove" onClick={() => removeItem(item.id)}>Удалить</button>
-              </li>
-            ))}
-          </ul>
-          <div className="cart-summary">
-            <p>Итого: <strong>{total} ₴</strong></p>
-            <button className="btn-checkout" onClick={() => navigate('/checkout')}>Оформить заказ</button>
-          </div>
+              </div>
+              <div className="cart-card__actions">
+                <button onClick={() => clearItem(item)} className="delete-btn">
+                  <img src={deleteIcon} alt="Удалить" />
+                </button>
+                <p className="cart-card__total">{(item.price * item.quantity).toLocaleString()} ₽</p>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+
+        {/* Правая колонка: итоговая панель */}
+        <div className="cart-summary">
+          <p className="summary-label">Итого</p>
+          <p className="summary-price">{totalPrice.toLocaleString()} ₽</p>
+          <button className="checkout-btn">Перейти к оформлению</button>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Cart;
+}
