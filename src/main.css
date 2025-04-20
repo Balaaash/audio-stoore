@@ -1,4 +1,3 @@
-/* ------ базовые сбросы ------ */
   * {
   box-sizing: border-box;
   }
@@ -12,7 +11,6 @@
   font-family: Arial, sans-serif;
   background: #f0f2f5;
   color: #333;
-  /* отступ под фиксированный header */
   padding-top: 56px;
   }
 
@@ -21,7 +19,6 @@
     color: inherit;
   }
   
-  /* ------ контейнер всего сайта ------ */
   .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -29,7 +26,6 @@
   width: 100%;
   }
   
-  /* ------ Header ------ */
   .header-wrapper {
     position: fixed;
     top: 0;
@@ -40,14 +36,13 @@
     border-bottom-right-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 100;
-    /* padding внутри header идти не должен — высоту задаёт .header */
   }
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px; /* компактная высота */
+    height: 56px;
   }
 
   .header-logo {
@@ -75,7 +70,6 @@
   }
 
   .site-header {
-    /* можно добавить фон или отступы, если нужно */
     padding: 20px 0;
     border-bottom: 1px solid #E0E0E0;
   }
@@ -97,18 +91,15 @@
     cursor: pointer;
   }
   
-  /* у первого элемента убираем левый отступ */
   .header-icons .icon-wrapper:first-child {
     margin-left: 0;
   }
   
-  /* задаём размер SVG‑иконок */
   .header-icons .icon {
     width: 24px;
     height: 24px;
   }
   
-  /* бейдж */
   .badge {
   position: absolute;
   top: -4px;
@@ -126,9 +117,8 @@
   justify-content: center;
 }
   
-  /* ------ Заголовок секции товаров ------ */
   .product-section + .product-section {
-    margin-top: 60px; /* отступ между секциями */
+    margin-top: 60px;
   }
   .section-title {
     font-size: 18px;
@@ -138,7 +128,6 @@
     color: #666;
   }
   
-  /* ------ Сетка карточек ------ */
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -154,9 +143,9 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     padding: 24px 16px 32px;
     text-align: center;
-    width: 100%;             /* заполняет 1fr из сетки */
-    max-width: 300px;        /* лимитируем, чтобы не превышать нужный размер */
-    min-height: 360px;       /* гарантируем минимальную высоту всех карточек */
+    width: 100%;
+    max-width: 300px;
+    min-height: 360px;
     padding: 16px;
     background: #fff;
     display: flex;
@@ -168,17 +157,16 @@
 
   .products {
     display: grid;
-  grid-template-columns: repeat(3, 320px); /* три колонки фиксированной ширины */
-  gap: 24px 32px;                          /* вертикальный и горизонтальный отступ */
-  justify-content: center;                /* центрируем весь грид внутри .container */
-  margin: 32px auto 0;                    /* сверху = 32px, слева/справа авто для центровки */
-  padding: 0 16px;                        /* немного внутреннего отступа по бокам */
-  box-sizing: border-box; /* важно, чтобы псевдо‑элемент позиционировался внутри */
+  grid-template-columns: repeat(3, 320px);
+  gap: 24px 32px;
+  justify-content: center;
+  margin: 32px auto 0;
+  padding: 0 16px;
+  box-sizing: border-box;
   }
   
   .product .product-card:nth-child(7)::before {
     content: "Беспроводные наушники";
-    /* превращаем перед 7‑й карточкой в полноценный grid‑элемент */
     display: block;
     grid-column: 1 / -1;
     margin: 40px 0 16px;
@@ -240,25 +228,25 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    max-width: 320px;      /* вместо 100% или 300+px ставим 260px */
-    width: 100%;           /* но позволяем ей ужиматься */
+    max-width: 320px;      
+    width: 100%;          
     padding: 12px;
     min-height: 300px;
   }
 
   .product-card img {
-    max-height: 140px;     /* раньше могло быть 200px+, теперь 140px */
+    max-height: 140px;    
     object-fit: contain;
-    margin-bottom: 8px;    /* чуть меньше пространства под картинкой */
+    margin-bottom: 8px;    
   }
 
   .product-card h3 {
-    font-size: 1rem;       /* было 1.1rem или больше — возвращаем к простому 1rem */
+    font-size: 1rem;       
     margin-bottom: 6px;
   }
 
   .product-card p {
-    font-size: 0.9rem;     /* чуть мельче ценник */
+    font-size: 0.9rem;     
     margin-bottom: 8px;
   }
 
@@ -267,7 +255,7 @@
   }
 
   .product-card button {
-    padding: 6px 12px;     /* чуть более компактная кнопка */
+    padding: 6px 12px;    
     font-size: 0.9rem;
   }
 
@@ -336,7 +324,6 @@
 
   /* ------ Footer ------ */
   
-  /* сама плитка футера */
   .footer-tile {
     background: #ffffff;
     border-radius: 24px 24px 0 0;
@@ -349,14 +336,12 @@
     align-items: flex-start;
   }
   
-  /* колонки внутри футера */
   .footer-col {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
   
-  /* логотип слева */
   .footer-col--logo {
     flex: 1;
     align-items: flex-start;
@@ -366,14 +351,12 @@
     font-weight: bold;
   }
   
-  /* средний блок (две группы ссылок) */
   .footer-col--middle {
     flex-direction: row;
     display: flex;
-    gap: 64px; /* расстояние между двумя группами */
+    gap: 64px;
   }
   
-  /* группы ссылок */
   .links-group {
     display: flex;
     flex-direction: column;
@@ -389,7 +372,6 @@
     color: #1e90ff;
   }
   
-  /* группы информации */
   .info-group {
     display: flex;
     flex-direction: flow;
@@ -406,7 +388,6 @@
     color: #1e90ff;
   }
   
-  /* переключатель языка */
   .lang-switcher {
     display: flex;
     align-items: center;
@@ -430,7 +411,6 @@
     color: #999;
   }
   
-  /* соц‑иконки справа */
   .footer-col--social {
     flex: 1;
     justify-content: flex-end;
@@ -628,7 +608,7 @@
 
   .cart-page {
     margin-top: 24px;
-    margin-bottom: 160px; /* чтобы не прятался футер */
+    margin-bottom: 160px;
   }
 
   cart-title {
@@ -651,7 +631,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    width: 100%;      /* занимать всю ширину родителя */
+    width: 100%;
     gap: 32px;
   }
 
@@ -691,11 +671,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* если нужно по центру высоты */
+    justify-content: center;
   }
   .cart-card__body {
     grid-area: body;
-    /* выравнивание по верху первой строки */
     align-self: start;
   }
 
@@ -847,7 +826,7 @@
   }
   
   .checkout-btn {
-    margin-top: 48px; /* чтобы отстоять от суммы */
+    margin-top: 48px;
     background: #000;
     color: #fff;
     border: none;
@@ -864,11 +843,11 @@
   }
   
   .container {
-    max-width: 1200px;      /* или любую удобную вам ширину */
+    max-width: 1200px;
     margin-left: auto;
-    margin-right: auto;     /* центрируем по горизонтали */
+    margin-right: auto;
     padding-left: 16px;
-    padding-right: 16px;    /* боковые отступы, чтобы не прилипало к краям */
+    padding-right: 16px;
   }
 
   .page-wrapper {
@@ -879,20 +858,17 @@
 
   .page-content {
     flex: 1;
-    /* если у вас есть паддинг под фиксированный header, оставьте его */
     padding-top: 56px;
-    /* по желанию — отступ снизу под футер */
     padding-bottom: 32px;
   }
   
   .footer-tile-wrapper {
-    position: static; /* вместо fixed */
-    margin-top: auto; /* пушит футер вниз, если мало контента */
-    background: transparent; /* фон берёт .footer-tile */
+    position: static;
+    margin-top: auto;
+    background: transparent;
     display: flex;
     justify-content: center;
-    padding: 32px 0; /* отступ сверху/снизу */
-    /* убираем z-index, fixed и т.д. */
+    padding: 32px 0;
   }
 
   @media (max-width: 1024px) {

@@ -1,11 +1,6 @@
-// src/components/IconLink.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 
-/**
- * Обёртка для любой иконки-ссылки.
- * Принимает href, aria-label и дочерний элемент (SVG или <img>).
- */
 export default function IconLink({ href, label, children }) {
   return (
     <a
@@ -32,8 +27,8 @@ export default function IconLink({ href, label, children }) {
 
 IconLink.propTypes = {
   href:    PropTypes.string.isRequired,
-  label:   PropTypes.string,     // aria-label
-  children: PropTypes.node.isRequired, // SVG или <img />
+  label:   PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 IconLink.defaultProps = {

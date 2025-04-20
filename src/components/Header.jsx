@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import favoriteIcon from '../images/icons/heart.svg';
@@ -8,12 +7,10 @@ export default function Header() {
   return (
     <header className="header-wrapper">
       <div className="header container">
-        {/* ЛОГОТИП */}
         <Link to="/" className="header-logo">
           QPICK
         </Link>
 
-        {/* КНОПКИ ИЗБРАННОЕ / КОРЗИНА */}
         <div className="header-actions">
           <Link to="/favorites" className="action-link">
             <img src={favoriteIcon} alt="Избранное" />

@@ -26,8 +26,8 @@ export function CartProvider({ children }) {
     });
   };
 
-  const removeFromCart = product => { /* ... */ };
-  const clearItem     = product => { /* ... */ };
+  const removeFromCart = product => {};
+  const clearItem     = product => {};
 
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearItem }}>

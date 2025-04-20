@@ -1,11 +1,9 @@
-// src/pages/Cart.jsx
 import React, { useState, useEffect } from 'react';
 import deleteIcon from '../images/icons/delete.svg';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
 
-  // Загружаем корзину из sessionStorage при монтировании
   useEffect(() => {
     const load = () => {
       const raw = sessionStorage.getItem('cart');
@@ -13,7 +11,6 @@ export default function Cart() {
     };
     load();
 
-    // Подписываемся на обновления (вызываем window.dispatchEvent в Catalog)
     window.addEventListener('cartUpdated', load);
     return () => window.removeEventListener('cartUpdated', load);
   }, []);
@@ -34,7 +31,6 @@ export default function Cart() {
     let updated = cart.map(p =>
       p.id === item.id ? { ...p, quantity: p.quantity - 1 } : p
     );
-    // Убираем товары с нулём
     updated = updated.filter(p => p.quantity > 0);
     save(updated);
   };
@@ -54,11 +50,9 @@ export default function Cart() {
         <p>Ваша корзина пуста.</p>
       ) : (
         <div className="cart-content">
-          {/* товары */}
           <div className="cart-items">
             {cart.map(item => (
               <div key={item.id} className="cart-card">
-              {/* 1) Медиа‑блок: картинка + qty */}
               <div className="cart-card__media">
                 <img src={item.image} alt={item.name} className="cart-card__img" />
                 <div className="cart-card__qty">
@@ -83,7 +77,6 @@ export default function Cart() {
             ))}
           </div>
 
-          {/* итог */}
           <div className="cart-summary">
             <p className="summary-label">Итого</p>
             <p className="summary-price">{totalPrice.toLocaleString()} ₽</p>

@@ -9,20 +9,20 @@ export default function Footer() {
   return (
     <div className="footer-tile-wrapper">
       <div className="footer-tile container">
-        {/* Логотип */}
+
         <div className="footer-col footer-col--logo">
           <div className="logo">QPICK</div>
         </div>
 
-        {/* Средний блок: две группы ссылок */}
+
         <div className="footer-col footer-col--middle">
-          {/* 1) Избранное / Корзина / Контакты */}
+
           <div className="links-group">
             <a href="#" className="footer-link">Избранное</a>
             <a href="#" className="footer-link">Корзина</a>
             <a href="#" className="footer-link">Контакты</a>
           </div>
-          {/* 2) Условия сервиса + переключатель языка */}
+
           <div className="info-group">
             <a href="#" className="footer-link">Условия сервиса</a>
             <div className="lang-switcher">
@@ -34,7 +34,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Социальные иконки */}
         <div className="footer-col footer-col--social">
           <IconLink href="https://vk.com" label="VK">
             <img src={vkIcon} alt="VK" className="icon" />

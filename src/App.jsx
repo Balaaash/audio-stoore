@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
@@ -14,7 +13,6 @@ export default function App() {
         <div className="page-wrapper">
           <Header />
 
-          {/* Вся страница будет занимать flex:1 */}
           <main className="page-content">
             <Routes>
               <Route path="/"    element={<Catalog />} />

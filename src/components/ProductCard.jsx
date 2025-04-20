@@ -1,11 +1,9 @@
-// src/components/ProductCard.jsx
 import React from 'react';
 import { ReactComponent as HeartIcon } from '../images/icons/heart.svg';
 import { ReactComponent as StarIcon } from '../images/icons/star.svg';
 
 const ProductCard = ({ product, onAddToCart }) => (
   <div className="product-card">
-    {/* только «избранное» */}
     <div className="card-icons">
       <HeartIcon className="icon" />
     </div>
