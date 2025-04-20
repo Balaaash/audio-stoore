@@ -1,5 +1,7 @@
 import React from 'react';
 import ProductCard from '../components/ProductCard';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
 // Импортируйте изображения
 import appleBYZS852I from '../images/apple-byz-s852i.jpg';
@@ -51,6 +53,7 @@ const Catalog = () => {
     </div>
   );
 };
+
 
 export default Catalog;
 

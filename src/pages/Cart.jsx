@@ -1,7 +1,5 @@
-// src/pages/CartPage.jsx
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
-import IconLink from '../components/IconLink';
 import deleteIcon from '../images/icons/delete.svg';
 
 export default function CartPage() {
@@ -51,3 +49,5 @@ export default function CartPage() {
     </div>
   );
 }
+
+
