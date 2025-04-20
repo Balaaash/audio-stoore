@@ -1,170 +1,398 @@
-/* Общие стили */
-body {
-    font-family: Arial, sans-serif;
+/* ------ базовые сбросы ------ */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F5F5F7;
     color: #333;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   
-  /* Заголовок */
-  header {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 20px;
+  /* ------ контейнер всего сайта ------ */
+  .site-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  /* ------ Header ------ */
+  .site-header {
+    /* можно добавить фон или отступы, если нужно */
+    padding: 20px 0;
+    border-bottom: 1px solid #E0E0E0;
+  }
+  
+  .site-header .site-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  header .logo {
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .cart-icon {
+  .header-icons {
     display: flex;
     align-items: center;
   }
   
-  .cart-icon img {
-    width: 24px;
-    height: 24px;
-    margin-left: 10px;
+  .header-icons .icon-wrapper {
+    position: relative;
+    margin-left: 16px;
     cursor: pointer;
   }
   
-  /* Каталог товаров */
-  .catalog {
-    padding: 20px;
+  /* у первого элемента убираем левый отступ */
+  .header-icons .icon-wrapper:first-child {
+    margin-left: 0;
   }
   
-  .catalog h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 20px;
+  /* задаём размер SVG‑иконок */
+  .header-icons .icon {
+    width: 24px;
+    height: 24px;
   }
   
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  /* бейдж */
+  .header-icons .badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #FF7A00;
+    color: #FFF;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
   
-  .product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
+  /* ------ Заголовок секции товаров ------ */
+  .product-section + .product-section {
+    margin-top: 60px; /* отступ между секциями */
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 40px 0 16px;
+    text-transform: uppercase;
+    color: #666;
+  }
+  
+  /* ------ Сетка карточек ------ */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  
+  /* ------ Карточка товара ------ */
+  .products-card {
+    position: relative;
+    background: #FFF;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 24px 16px 32px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    overflow: hidden;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    position: relative; /* важно, чтобы псевдо‑элемент позиционировался внутри */
+  }
+  
+  .product .product-card:nth-child(7)::before {
+    content: "Беспроводные наушники";
+    /* превращаем перед 7‑й карточкой в полноценный grid‑элемент */
+    display: block;
+    grid-column: 1 / -1;
+    margin: 40px 0 16px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .card-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 12px;
   }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-card img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .product-card .product-info {
+
+  .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
+    align-items: center;
   }
-  
-  .product-card .product-details {
-    text-align: left;
-    margin-right: 20px;
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
-  .product-card .product-name {
-    font-size: 18px;
-    color: #333;
-    margin: 0;
+
+  .card-icons {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 12px;
   }
-  
-  .product-card .rating {
-    font-size: 16px;
-    color: #ffb400;
-    margin: 10px 0;
-  }
-  
-  .product-card .price {
-    font-size: 18px;
-    color: #e67e22;
-    margin: 10px 0;
-  }
-  
-  .product-card button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+
+  .card-icons img {
+    width: 20px;
     cursor: pointer;
+  }
+
+  .product-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 16px;
+  }
+
+  .product-name {
     font-size: 16px;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
-  
-  .product-card button:hover {
-    background-color: #0056b3;
+
+  .product-card {
+    position: relative;
+    background: #FFF;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 24px 16px 32px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
   }
-  
-  /* Футер */
-  footer {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    padding: 10px 20px;
+
+  .product-price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .price-current {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FF7A00;
+  }
+
+  .price-old {
+    font-size: 14px;
+    color: #BBB;
+    text-decoration: line-through;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #FFB400;
+  }
+  .product-rating img {
+    width: 16px;
+  }
+
+  .btn-buy {
+    display: inline-block;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    background-color: #FF7A00;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-buy:hover {
+    background-color: #E26A00;
+  }
+
+  .btn-buy-text {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+  }
+  .btn-buy-text:hover {
+    text-decoration: underline;
+  }
+
+  .site-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* ------ Footer ------ */
+  .site-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px 20px;
+    border-top: 1px solid #E0E0E0;
   }
-  
-  footer .logo {
-    font-size: 20px;
-    color: #333;
+
+  .site-footer .logo {
+    font-size: 28px;
+    font-weight: 700;
   }
-  
-  footer .links {
+
+  .site-footer .footer-nav ul {
+    list-style: none;
+  }
+
+  .site-footer .footer-nav li {
+    margin-bottom: 12px;
+  }
+
+  .site-footer .lang-switch {
+    margin-top: 8px;
+  }
+
+  .site-footer .footer-social {
     display: flex;
-    align-items: center;
+    gap: 16px;
   }
-  
-  footer .links a {
-    margin: 0 10px;
-    color: #555;
-    text-decoration: none;
+
+  .footer-nav {
+    display: flex;
+    gap: 60px;
+  }
+
+  .footer-nav ul {
+    list-style: none;
+  }
+
+  .footer-nav li {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #444;
+  }
+
+  .lang-switch {
+    margin-top: 4px;
     font-size: 14px;
   }
-  
-  footer .links a:hover {
-    color: #007bff;
+
+  .lang-switch .active {
+    font-weight: 600;
+  }
+
+  .footer-social img {
+    width: 24px;
+    margin-left: 16px;
+    cursor: pointer;
   }
   
-  footer .social-icons {
+  .cart-page {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .cart-item {
     display: flex;
     align-items: center;
+    background: #FFF;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
   }
-  
-  footer .social-icons img {
-    width: 20px;
-    height: 20px;
-    margin: 0 5px;
+
+  .cart-item-img {
+    width: 80px;
+    margin-right: 16px;
+  }
+
+  .cart-item-info {
+    flex: 1;
+  }
+
+  .cart-wrapper {
+    position: relative;
     cursor: pointer;
+  }
+
+  .cart-wrapper .badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #FF4D4F;
+    color: #FFF;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .quantity-controls button {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #CCC;
+    background: none;
+    cursor: pointer;
+  }
+
+  .btn-remove {
+    background: none;
+    border: none;
+    color: #FF4D4F;
+    cursor: pointer;
+  }
+
+  .cart-summary {
+    background: #FFF;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .btn-checkout {
+    background-color: #FF7A00;
+    color: #FFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+
+  .btn-checkout:hover {
+    background-color: #E26A00;
   }
   

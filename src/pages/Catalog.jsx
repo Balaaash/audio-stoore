@@ -35,15 +35,15 @@ const Catalog = () => {
   };
 
   return (
-    <div className="catalog">
-      <h2>Наушники</h2>
-      <div className="product-list">
+    <div className="site-container">
+     <h2 className="section-title">Наушники</h2>
+     <div className="products-grid">
         {products.slice(0, 6).map(product => (
           <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
         ))}
       </div>
-      <h2>Беспроводные наушники</h2>
-      <div className="product-list">
+      <h2 className="section-title">Беспроводные наушники</h2>
+      <div className="products-grid">
         {products.slice(6).map(product => (
           <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
         ))}

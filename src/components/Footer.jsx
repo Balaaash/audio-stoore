@@ -1,25 +1,42 @@
 import React from 'react';
-import { ReactComponent as TelegramIcon } from '../images/icons/telegram.svg';
 import { ReactComponent as VkIcon } from '../images/icons/vk.svg';
-import { ReactComponent as InstagramIcon } from '../images/icons/whatsapp.svg';
+import { ReactComponent as TelegramIcon } from '../images/icons/telegram.svg';
+import { ReactComponent as WhatsappIcon } from '../images/icons/whatsapp.svg';
 
-const Footer = () => {
-  return (
-    <footer>
-      <div className="logo">QPICK</div>
-      <div className="links">
-        <button className="link-button">Избранное</button>
-        <button className="link-button">Сравнение</button>
-        <button className="link-button">Контакты</button>
+const Footer = () => (
+  <footer className="site-footer">
+    <div className="site-container footer-content">
+      <div className="footer-col">
+        <div className="logo">QPICK</div>
+        <nav className="footer-nav">
+          <ul>
+            <li>Избранное</li>
+            <li>Корзина</li>
+            <li>Контакты</li>
+          </ul>
+        </nav>
       </div>
-      <div className="social-icons">
-        <TelegramIcon className="icon" />
+
+      <div className="footer-col">
+        <nav className="footer-nav">
+          <ul>
+            <li>Условия сервиса</li>
+          </ul>
+        </nav>
+
+        <div className="lang-switch">
+          <span className="active">Рус</span> | Eng
+        </div>
+      </div>
+
+      <div className="footer-col footer-social">
         <VkIcon className="icon" />
-        <InstagramIcon className="icon" />
+        <TelegramIcon className="icon" />
+        <WhatsappIcon className="icon" />
       </div>
-    </footer>
-  );
-};
+    </div>
+  </footer>
+);
 
 export default Footer;
 
