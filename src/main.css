@@ -867,7 +867,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #f0f2f5;   /* фон вокруг плитки, если нужен */
+    background: #f0f2f5;
     display: flex;
     justify-content: center;
     z-index: 1000;
